@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Día del Amor y la Amistad</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family: 'Segoe UI', sans-serif;}
+
+body{
+  height:100vh;
+  background: linear-gradient(135deg,#ff9ecf,#ffd6a5,#ffb3c6);
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+.container{
+  position:relative;
+  z-index:2;
+}
+
+h1{
+  color:white;
+  font-size:2rem;
+  margin-bottom:15px;
+}
+
+button{
+  padding:12px 25px;
+  margin:10px;
+  border:none;
+  border-radius:30px;
+  font-size:1rem;
+  cursor:pointer;
+  transition:0.3s ease;
+}
+
+#openBtn{
+  background:#ff006e;
+  color:white;
+}
+
+#noBtn{
+  background:white;
+  color:#ff006e;
+  position:relative;
+}
+
+button:hover{
+  transform:scale(1.1);
+}
+
+.envelope{
+  width:300px;
+  height:200px;
+  background:white;
+  position:relative;
+  margin:20px auto;
+  border-radius:10px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.2);
+  transform:rotateX(0deg);
+  transition:1s;
+  display:none;
+}
+
+.envelope.open{
+  transform:rotateX(180deg);
+}
+
+.letter{
+  padding:20px;
+  font-size:1.1rem;
+  color:#ff006e;
+}
+
+/* Corazones fondo */
+.heart{
+  position:absolute;
+  color:white;
+  animation:float 6s infinite ease-in;
+  opacity:0.6;
+}
+
+@keyframes float{
+  0%{transform:translateY(100vh);opacity:0;}
+  50%{opacity:1;}
+  100%{transform:translateY(-10vh);opacity:0;}
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>💌 Día del Amor y la Amistad 💖</h1>
+  <p style="color:white;margin-bottom:10px;">¿Abrimos la carta?</p>
+
+  <button id="openBtn">Abrir carta</button>
+  <button id="noBtn">No abrir</button>
+
+  <div class="envelope" id="envelope">
+    <div class="letter">
+      ✨ ¡Feliz Día del Amor y la Amistad! 💖 <br><br>
+      Espero que la hayas pasado genial, llena de sonrisas,
+      cariño y momentos especiales 🎈🎉
+    </div>
+  </div>
+</div>
+
+<script>
+const openBtn = document.getElementById("openBtn");
+const noBtn = document.getElementById("noBtn");
+const envelope = document.getElementById("envelope");
+
+let messages = [
+  "¿Segura? 😏",
+  "Piénsalo bien 🤔",
+  "Oye… ábrelo 🙈",
+  "No seas así 😅",
+  "Te va a gustar 💖"
+];
+
+let index = 0;
+
+noBtn.addEventListener("click", ()=>{
+  noBtn.textContent = messages[index];
+  index = (index + 1) % messages.length;
+
+  noBtn.style.position="absolute";
+  noBtn.style.top=Math.random()*70+"vh";
+  noBtn.style.left=Math.random()*70+"vw";
+});
+
+openBtn.addEventListener("click", ()=>{
+  envelope.style.display="block";
+  setTimeout(()=>envelope.classList.add("open"),100);
+  openBtn.style.display="none";
+  noBtn.style.display="none";
+  launchEffects();
+});
+
+/* Corazones flotando */
+function createHearts(){
+  for(let i=0;i<20;i++){
+    let heart=document.createElement("div");
+    heart.classList.add("heart");
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=Math.random()*20+15+"px";
+    heart.innerHTML="💖";
+    heart.style.animationDuration=(Math.random()*3+3)+"s";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+  }
+}
+setInterval(createHearts,2000);
+
+/* Confeti y globos */
+function launchEffects(){
+  for(let i=0;i<40;i++){
+    let conf=document.createElement("div");
+    conf.innerHTML=["🎉","🎈","💘","💝"][Math.floor(Math.random()*4)];
+    conf.style.position="absolute";
+    conf.style.left=Math.random()*100+"vw";
+    conf.style.top="100vh";
+    conf.style.fontSize="20px";
+    conf.style.animation="float 4s ease-out forwards";
+    document.body.appendChild(conf);
+    setTimeout(()=>conf.remove(),4000);
+  }
+}
+</script>
+
+</body>
+</html>
