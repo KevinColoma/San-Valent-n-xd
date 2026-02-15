@@ -6,26 +6,31 @@
 <title>Día del Amor y la Amistad</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family: 'Segoe UI', sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
 
 body{
   height:100vh;
-  background: linear-gradient(135deg,#ff9ecf,#ffd6a5,#ffb3c6);
+  background: linear-gradient(135deg,#6dd5ed,#2193b0,#a1c4fd);
   overflow:hidden;
   display:flex;
   justify-content:center;
   align-items:center;
   text-align:center;
+  color:white;
 }
 
 .container{
   position:relative;
   z-index:2;
+  padding:20px;
 }
 
 h1{
-  color:white;
   font-size:2rem;
+  margin-bottom:10px;
+}
+
+p{
   margin-bottom:15px;
 }
 
@@ -40,13 +45,13 @@ button{
 }
 
 #openBtn{
-  background:#ff006e;
+  background:#ff9800;
   color:white;
 }
 
 #noBtn{
   background:white;
-  color:#ff006e;
+  color:#2193b0;
   position:relative;
 }
 
@@ -58,118 +63,107 @@ button:hover{
   width:300px;
   height:200px;
   background:white;
-  position:relative;
+  color:#333;
   margin:20px auto;
-  border-radius:10px;
+  border-radius:12px;
   box-shadow:0 15px 40px rgba(0,0,0,0.2);
-  transform:rotateX(0deg);
-  transition:1s;
-  display:none;
-}
-
-.envelope.open{
-  transform:rotateX(180deg);
-}
-
-.letter{
+  transform:scale(0);
+  transition:0.6s ease;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   padding:20px;
-  font-size:1.1rem;
-  color:#ff006e;
 }
 
-/* Corazones fondo */
-.heart{
+.envelope.show{
+  transform:scale(1);
+}
+
+/* Fondo animado */
+.bg-shape{
   position:absolute;
-  color:white;
-  animation:float 6s infinite ease-in;
-  opacity:0.6;
+  width:40px;
+  height:40px;
+  background:rgba(255,255,255,0.2);
+  border-radius:50%;
+  animation:float 8s infinite ease-in-out;
 }
 
 @keyframes float{
-  0%{transform:translateY(100vh);opacity:0;}
-  50%{opacity:1;}
-  100%{transform:translateY(-10vh);opacity:0;}
+  0%{transform:translateY(100vh);}
+  100%{transform:translateY(-10vh);}
 }
 </style>
 </head>
 <body>
 
 <div class="container">
-  <h1>💌 Día del Amor y la Amistad 💖</h1>
-  <p style="color:white;margin-bottom:10px;">¿Abrimos la carta?</p>
+  <h1>🎉 Día del Amor y la Amistad 🎈</h1>
+  <p>¿Abrimos la carta sorpresa?</p>
 
   <button id="openBtn">Abrir carta</button>
   <button id="noBtn">No abrir</button>
 
   <div class="envelope" id="envelope">
-    <div class="letter">
-      ✨ ¡Feliz Día del Amor y la Amistad! 💖 <br><br>
-      Espero que la hayas pasado genial, llena de sonrisas,
-      cariño y momentos especiales 🎈🎉
-    </div>
+    🎊 ¡Feliz Día del Amor y la Amistad! 🎉<br><br>
+    Que la hayas pasado genial, llena de risas,
+    buenos momentos y mucha energía positiva 🤙🏼
   </div>
 </div>
 
 <script>
-const openBtn = document.getElementById("openBtn");
-const noBtn = document.getElementById("noBtn");
-const envelope = document.getElementById("envelope");
+const openBtn=document.getElementById("openBtn");
+const noBtn=document.getElementById("noBtn");
+const envelope=document.getElementById("envelope");
 
-let messages = [
-  "¿Segura? 😏",
+let messages=[
+  "¿Segura? 😄",
   "Piénsalo bien 🤔",
-  "Oye… ábrelo 🙈",
-  "No seas así 😅",
-  "Te va a gustar 💖"
+  "Oye… ábrelo 😅",
+  "Prometo que vale la pena 😌",
+  "No seas así 🙃"
 ];
 
-let index = 0;
+let index=0;
 
-noBtn.addEventListener("click", ()=>{
-  noBtn.textContent = messages[index];
-  index = (index + 1) % messages.length;
+noBtn.addEventListener("click",()=>{
+  noBtn.textContent=messages[index];
+  index=(index+1)%messages.length;
 
   noBtn.style.position="absolute";
   noBtn.style.top=Math.random()*70+"vh";
   noBtn.style.left=Math.random()*70+"vw";
 });
 
-openBtn.addEventListener("click", ()=>{
-  envelope.style.display="block";
-  setTimeout(()=>envelope.classList.add("open"),100);
+openBtn.addEventListener("click",()=>{
+  envelope.classList.add("show");
   openBtn.style.display="none";
   noBtn.style.display="none";
-  launchEffects();
+  launchConfetti();
 });
 
-/* Corazones flotando */
-function createHearts(){
-  for(let i=0;i<20;i++){
-    let heart=document.createElement("div");
-    heart.classList.add("heart");
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.fontSize=Math.random()*20+15+"px";
-    heart.innerHTML="💖";
-    heart.style.animationDuration=(Math.random()*3+3)+"s";
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),6000);
+/* Confeti y globos */
+function launchConfetti(){
+  for(let i=0;i<40;i++){
+    let el=document.createElement("div");
+    el.innerHTML=["🎉","🎈","🎊","✨"][Math.floor(Math.random()*4)];
+    el.style.position="absolute";
+    el.style.left=Math.random()*100+"vw";
+    el.style.top="100vh";
+    el.style.fontSize="22px";
+    el.style.animation="float 4s ease-out forwards";
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),4000);
   }
 }
-setInterval(createHearts,2000);
 
-/* Confeti y globos */
-function launchEffects(){
-  for(let i=0;i<40;i++){
-    let conf=document.createElement("div");
-    conf.innerHTML=["🎉","🎈","💘","💝"][Math.floor(Math.random()*4)];
-    conf.style.position="absolute";
-    conf.style.left=Math.random()*100+"vw";
-    conf.style.top="100vh";
-    conf.style.fontSize="20px";
-    conf.style.animation="float 4s ease-out forwards";
-    document.body.appendChild(conf);
-    setTimeout(()=>conf.remove(),4000);
-  }
+/* Fondo animado */
+for(let i=0;i<15;i++){
+  let shape=document.createElement("div");
+  shape.classList.add("bg-shape");
+  shape.style.left=Math.random()*100+"vw";
+  shape.style.animationDuration=(Math.random()*5+5)+"s";
+  document.body.appendChild(shape);
 }
 </script>
 
